@@ -29,7 +29,28 @@ const getCompanyStockPriceGenerator = function* (companyName) {
   return stockPrice;
 }
 ```
+## The function that does the trick
+```
+const genToFn = (generatorFn, ...args) => {
+  return () => {
+    const iterator = generatorFn(...args);
+    return new Promise((resolve, reject) => {
+      const handleResult = (lastPromiseResult) => {
+        let { value, done} = iterator.next(lastPromiseResult);
+        if(done) {
+          resolve(value);
+        } else if(value instanceof Promise) {
+          value.then(promiseResult => handleResult(promiseResult));
+        } else {
+          handleResult(value);
+        }
+      }
+      handleResult();
+    });
+  }
+}
 
+```
 ## How to use
 - Write any generator function that performs the logic as you like to
 - Call the genToFn function, passing in the generator function, then you got it
