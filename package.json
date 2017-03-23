@@ -1,0 +1,13 @@
+{
+  "name": "rxJS",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node client/index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0"
+  }
+}
